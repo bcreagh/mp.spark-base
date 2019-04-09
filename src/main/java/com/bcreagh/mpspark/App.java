@@ -2,6 +2,7 @@ package com.bcreagh.mpspark;
 
 import com.bcreagh.mpspark.routes.ListActions;
 import com.bcreagh.mpspark.services.ActionService;
+import com.bcreagh.mpspark.services.ConfigService;
 
 import java.io.IOException;
 
@@ -14,9 +15,18 @@ import static spark.Spark.*;
 public class App 
 {
     public static void main( String[] args ) throws IOException {
-        System.out.println( "Hello World!" );
-        ActionService.init();
-        ListActions.init();
+        initializeServices();
+        port(ConfigService.getPort());
+        initializeRoutes();
         get("/hello", (req, res) -> "Hello World");
+    }
+
+    private static void initializeServices() throws IOException {
+        ActionService.init();
+        ConfigService.init();
+    }
+
+    private static void initializeRoutes() throws IOException {
+        ListActions.init();
     }
 }
