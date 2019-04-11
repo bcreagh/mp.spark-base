@@ -13,6 +13,22 @@ public class Action {
     private ArrayList<Example> examples = new ArrayList<>();
     private RequestDetails requestDetails = new RequestDetails();
 
+    public Action() {
+    }
+
+    public Action(Action action) {
+        this.name = action.name;
+        this.description = action.description;
+        this.route = action.route;
+        this.instructions = action.instructions;
+        this.readme = new Readme(action.readme);
+        for(Example exampleToClone : action.examples) {
+            Example example = new Example(exampleToClone);
+            this.examples.add(example);
+        }
+        this.requestDetails = new RequestDetails(action.requestDetails);
+    }
+
     public String getName() {
         return name;
     }

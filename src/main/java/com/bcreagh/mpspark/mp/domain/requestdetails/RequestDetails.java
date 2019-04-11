@@ -5,6 +5,15 @@ public class RequestDetails {
     private InputTypes inputType = InputTypes.JSON;
     private String inputTemplate = "";
 
+    public RequestDetails() {
+    }
+
+    public RequestDetails(RequestDetails requestDetails) {
+        this.httpMethod = requestDetails.httpMethod;
+        this.inputType = requestDetails.inputType;
+        this.inputTemplate = requestDetails.inputTemplate;
+    }
+
     public HttpMethods getHttpMethod() {
         return httpMethod;
     }

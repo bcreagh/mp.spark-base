@@ -6,6 +6,16 @@ public class Example {
     private String route = "";
     private Object input = "";
 
+    public Example() {
+    }
+
+    public Example(Example example) {
+        this.name = example.name;
+        this.hasOwnRoute = example.hasOwnRoute;
+        this.route = example.route;
+        this.input = example.input;
+    }
+
     public String getName() {
         return name;
     }

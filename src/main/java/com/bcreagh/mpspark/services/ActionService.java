@@ -29,4 +29,18 @@ public class ActionService {
     public static ArrayList<Action> getAllActions() {
         return actions;
     }
+
+    public static Action getAction(String route) {
+        Action action = null;
+        for(Action actionFromList : actions) {
+            if (actionFromList.getRoute().equals(route)) {
+                action = actionFromList;
+                break;
+            }
+        }
+        if (action == null) {
+            throw new IllegalArgumentException(String.format("An action could not be found for the route %s", route));
+        }
+        return new Action(action);
+    }
 }
