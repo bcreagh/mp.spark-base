@@ -14,10 +14,9 @@ public class ConfigService {
 
     public static void init() throws IOException {
         try {
-            FileReader fileReader = new FileReader("config.json");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String actionsJson = FileService.readFileFromResources("config.json", "UTF-8");
             Gson gson = new Gson();
-            config = gson.fromJson(bufferedReader, Config.class);
+            config = gson.fromJson(actionsJson, Config.class);
         } catch (JsonParseException ex) {
             System.out.println("There was a problem parsing the config.json file");
             throw ex;

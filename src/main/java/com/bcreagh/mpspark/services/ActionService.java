@@ -4,9 +4,6 @@ import com.bcreagh.mpspark.mp.domain.Action;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,10 +13,9 @@ public class ActionService {
 
     public static void init() throws IOException {
         try {
-            FileReader fileReader = new FileReader("actions.json");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String actionsJson = FileService.readFileFromResources("actions.json", "UTF-8");
             Gson gson = new Gson();
-            actions = gson.fromJson(bufferedReader, new TypeToken<ArrayList<Action>>(){ }.getType());
+            actions = gson.fromJson(actionsJson, new TypeToken<ArrayList<Action>>(){ }.getType());
         } catch (JsonParseException ex) {
             System.out.println("There was a problem parsing the actions.json file");
             throw ex;

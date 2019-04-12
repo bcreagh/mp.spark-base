@@ -2,6 +2,7 @@ package com.bcreagh.mpspark;
 
 import com.bcreagh.mpspark.routes.ListActions;
 import com.bcreagh.mpspark.routes.TopicReadme;
+import com.bcreagh.mpspark.routes.helloworld.HelloWorld;
 import com.bcreagh.mpspark.services.ActionService;
 import com.bcreagh.mpspark.services.ConfigService;
 
@@ -30,5 +31,6 @@ public class App
     private static void initializeRoutes() throws IOException {
         ListActions.init();
         TopicReadme.init();
+        HelloWorld.init();
     }
 }

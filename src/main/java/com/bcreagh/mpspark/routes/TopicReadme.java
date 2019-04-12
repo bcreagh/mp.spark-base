@@ -2,10 +2,9 @@ package com.bcreagh.mpspark.routes;
 
 import com.bcreagh.mpspark.mp.domain.Readme;
 import com.bcreagh.mpspark.services.ConfigService;
+import com.bcreagh.mpspark.services.FileService;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static spark.Spark.*;
 
@@ -29,8 +28,7 @@ public class TopicReadme {
     }
 
     private static void loadReadme() throws IOException {
-        byte[] readmeData = Files.readAllBytes(Paths.get("README.md"));
-        String readmeAsString = new String(readmeData, "UTF-8");
+        String readmeAsString = FileService.readFileFromResources("README.md", "UTF-8");
         readme.setData(readmeAsString);
     }
 }
