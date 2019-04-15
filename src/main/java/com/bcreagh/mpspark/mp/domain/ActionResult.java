@@ -8,7 +8,7 @@ public class ActionResult {
     private String input = "";
     private String output = "";
     private ArrayList<Log> logs = new ArrayList<>();
-    private int performance = -1;
+    private long performance = -1;
 
     public String getInput() {
         return input;
@@ -34,11 +34,11 @@ public class ActionResult {
         this.logs = logs;
     }
 
-    public int getPerformance() {
+    public long getPerformance() {
         return performance;
     }
 
-    public void setPerformance(int performance) {
+    public void setPerformance(long performance) {
         this.performance = performance;
     }
 }

@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
+import com.bcreagh.mpspark.mp.domain.ActionResult;
+import com.bcreagh.mpspark.mp.utilities.Stopwatch;
 import com.google.gson.Gson;
 import static spark.Spark.*;
 
@@ -21,6 +23,8 @@ public class HelloWorld {
 
     public static void init() {
         hello_world_get();
+        hello_world_post();
+        hello_world_with_route();
     }
 
     public static void hello_world_get() {
@@ -31,6 +35,42 @@ public class HelloWorld {
             String readmeAsString = FileService.readFileFromResources("routes/helloworld/helloWorld.md", "UTF-8");
             action.getReadme().setData(readmeAsString);
             return gson.toJson(action);
+        });
+    }
+
+    public static void hello_world_post() {
+        post(String.format("/%s/hello-world", SERVICE_NAME), (request, response) -> {
+            ActionResult result = new ActionResult();
+            Stopwatch stopwatch = new Stopwatch();
+            HelloWorldInput input = gson.fromJson(request.body(), HelloWorldInput.class);
+
+            Logger.log("Handling the POST request", result);
+            stopwatch.start();
+            result.setInput(input.getInput());
+            result.setOutput("Hello " + input.getInput());
+            long performance = stopwatch.stop();
+            result.setPerformance(performance);
+
+            response.type("application/json");
+            return gson.toJson(result);
+        });
+    }
+
+    public static void hello_world_with_route() {
+        post(String.format("/%s/hello-world/with-route", SERVICE_NAME), (request, response) -> {
+            ActionResult result = new ActionResult();
+            Stopwatch stopwatch = new Stopwatch();
+            String input = "- this response is from the 'with-route' route in spark base!";
+
+            Logger.log("Handling the POST request", result);
+            stopwatch.start();
+            result.setInput(input);
+            result.setOutput("Hello " + input);
+            long performance = stopwatch.stop();
+            result.setPerformance(performance);
+
+            response.type("application/json");
+            return gson.toJson(result);
         });
     }
 }
