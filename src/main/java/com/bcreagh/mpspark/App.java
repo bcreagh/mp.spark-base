@@ -3,9 +3,6 @@ package com.bcreagh.mpspark;
 import com.bcreagh.mpspark.exceptions.InitializationException;
 import com.bcreagh.mpspark.mp.utilities.logger.Logger;
 import com.bcreagh.mpspark.routes.BaseRoute;
-import com.bcreagh.mpspark.routes.ListActions;
-import com.bcreagh.mpspark.routes.TopicReadme;
-import com.bcreagh.mpspark.routes.helloworld.HelloWorld;
 import com.bcreagh.mpspark.routes.routeutils.MpRoute;
 import com.bcreagh.mpspark.services.ActionService;
 import com.bcreagh.mpspark.services.ConfigService;
@@ -35,7 +32,7 @@ public class App
         ConfigService.init();
     }
 
-    private static void initializeRouteClasses() throws IOException {
+    private static void initializeRouteClasses() {
         Reflections reflections = new Reflections("com.bcreagh.mpspark.routes");
         Set<Class<? extends BaseRoute>> routeClasses = reflections.getSubTypesOf(BaseRoute.class);
         for (Class<? extends BaseRoute> route : routeClasses) {
