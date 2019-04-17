@@ -7,6 +7,7 @@ import com.bcreagh.mpspark.routes.routeutils.MpRoute;
 import com.bcreagh.mpspark.services.ActionService;
 import com.bcreagh.mpspark.services.ConfigService;
 import org.reflections.Reflections;
+import spark.Filter;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -24,12 +25,28 @@ public class App
     public static void main( String[] args ) throws IOException {
         initializeServices();
         port(ConfigService.getPort());
+        enableCors();
+        handleHttpOptions();
         initializeRouteClasses();
     }
 
     private static void initializeServices() throws IOException {
         ActionService.init();
         ConfigService.init();
+    }
+
+    private static void enableCors() {
+        after((Filter) (request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+        });
+    }
+
+    private static void handleHttpOptions() {
+        options("/*", (request, response) -> {
+            response.type("application/json");
+            response.header("Access-Control-Allow-Headers", "content-type");
+            return "[{\"Allow\": \"POST\"}, 200, {\"Access-Control-Allow-Origin\": \"*\", \"Access-Control-Allow-Methods\": \"PUT,GET\"}]";
+        });
     }
 
     private static void initializeRouteClasses() {
