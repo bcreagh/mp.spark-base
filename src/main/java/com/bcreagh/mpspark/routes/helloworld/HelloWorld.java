@@ -7,17 +7,13 @@ import static spark.Spark.*;
 
 import com.bcreagh.mpspark.mp.domain.Action;
 import com.bcreagh.mpspark.mp.utilities.logger.Logger;
+import com.bcreagh.mpspark.routes.routeutils.MpRoute;
 import com.bcreagh.mpspark.services.ActionService;
 import com.bcreagh.mpspark.services.FileService;
 
 public class HelloWorld extends BaseRoute {
 
-    public static void init() {
-        hello_world_get();
-        hello_world_post();
-        hello_world_with_route();
-    }
-
+    @MpRoute
     public static void hello_world_get() {
         get(String.format("/%s/hello-world", SERVICE_NAME), (request, response) -> {
             Logger.log("Handling the GET request");
@@ -28,6 +24,7 @@ public class HelloWorld extends BaseRoute {
         });
     }
 
+    @MpRoute
     public static void hello_world_post() {
         post(String.format("/%s/hello-world", SERVICE_NAME), (request, response) -> {
             ActionResult result = new ActionResult();
@@ -45,6 +42,7 @@ public class HelloWorld extends BaseRoute {
         });
     }
 
+    @MpRoute
     public static void hello_world_with_route() {
         post(String.format("/%s/hello-world/with-route", SERVICE_NAME), (request, response) -> {
             ActionResult result = new ActionResult();
